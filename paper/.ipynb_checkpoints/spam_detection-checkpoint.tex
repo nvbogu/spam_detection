@@ -1,0 +1,250 @@
+%\documentclass[12pt,twoside]{article}
+\documentclass[conference]{IEEEtran}  % this should work with your LaTeX installation; else download extra package (www.ctan.org/pkg/ieeetran) or remove IEEE usage below
+
+%%%%%%% Fill this out:
+\newcommand{\trtitle}{Spam Detection}
+\newcommand{\titleshort}{NNs for Artificial Agents} % title for header:
+\newcommand{\authorlastnames}{Adams, Jefferson, Washington} % alphabetical for seminars
+\newcommand{\trcourse}{Knowledge Processing in Intelligent Systems: Practical Seminar}
+\newcommand{\trgroup}{Knowledge Technology, WTM}
+\newcommand{\truniversity}{Department of Informatics, University of Hamburg}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Languages:
+
+% If the thesis is written in English:
+\usepackage[english]{babel} 						
+\selectlanguage{english}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bind packages:
+\usepackage{lipsum}
+
+\usepackage{acronym}                    % Acronyms
+\usepackage{algorithmic}								% Algorithms and Pseudocode
+\usepackage{algorithm}									% Algorithms and Pseudocode
+\usepackage{amsfonts}                   % AMS Math Packet (Fonts)
+\usepackage{amsmath}                    % AMS Math Packet
+\usepackage{amssymb}                    % Additional mathematical symbols
+\usepackage{amsthm}
+\usepackage{booktabs}                   % Nicer tables
+%\usepackage[font=small,labelfont=bf]{caption} % Numbered captions for figures
+\usepackage{color}                      % Enables defining of colors via \definecolor
+\definecolor{uhhRed}{RGB}{254,0,0}		  % Official Uni Hamburg Red
+\definecolor{uhhGrey}{RGB}{122,122,120} % Official Uni Hamburg Grey
+\usepackage{fancybox}                   % Gleichungen einrahmen
+\usepackage{fancyhdr}										% Packet for nicer headers
+%\usepackage{fancyheadings}             % Nicer numbering of headlines
+
+%\usepackage[outer=3.35cm]{geometry} 	  % Type area (size, margins...) !!!Release version
+%\usepackage[outer=2.5cm]{geometry} 		% Type area (size, margins...) !!!Print version
+%\usepackage{geometry} 									% Type area (size, margins...) !!!Proofread version
+\usepackage{geometry} 	  % Type area (size, margins...) !!!Draft version
+\geometry{a4paper,body={7.0in,9.1in}}
+
+\usepackage{graphicx}                   % Inclusion of graphics
+%\usepackage{latexsym}                  % Special symbols
+\usepackage{longtable}									% Allow tables over several parges
+\usepackage{listings}                   % Nicer source code listings
+\usepackage{multicol}										% Content of a table over several columns
+\usepackage{multirow}										% Content of a table over several rows
+\usepackage{rotating}										% Alows to rotate text and objects
+\usepackage[hang]{subfigure}            % Allows to use multiple (partial) figures in a fig
+%\usepackage[font=footnotesize,labelfont=rm]{subfig}	% Pictures in a floating environment
+\usepackage{tabularx}										% Tables with fixed width but variable rows
+\usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configurationen:
+
+\hyphenation{whe-ther} 									% Manually use: "\-" in a word: Staats\-ver\-trag
+
+%\lstloadlanguages{C}                   % Set the default language for listings
+\DeclareGraphicsExtensions{.pdf,.svg,.jpg,.png,.eps} % first try pdf, then eps, png and jpg
+\graphicspath{{./src/}} 								% Path to a folder where all pictures are located
+\pagestyle{fancy} 											% Use nicer header and footer
+
+% Redefine the environments for floating objects:
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.9} 			  %Standard: 0.7
+\renewcommand{\bottomfraction}{0.5}		  %Standard: 0.3
+\renewcommand{\textfraction}{0.1}		  	%Standard: 0.2
+\renewcommand{\floatpagefraction}{0.8} 	%Standard: 0.5
+
+% Tables with a nicer padding:
+\renewcommand{\arraystretch}{1.2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Additional 'theorem' and 'definition' blocks:
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Satz}[section]		% Wenn in Deutsch geschrieben wird.
+\newtheorem{axiom}{Axiom}[section] 	
+%\newtheorem{axiom}{Fakt}[chapter]			% Wenn in Deutsch geschrieben wird.
+%Usage:%\begin{axiom}[optional description]%Main part%\end{fakt}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+%Additional types of axioms:
+\newtheorem{lemma}[axiom]{Lemma}
+\newtheorem{observation}[axiom]{Observation}
+
+%Additional types of definitions:
+\theoremstyle{remark}
+%\newtheorem{remark}[definition]{Bemerkung} % Wenn in Deutsch geschrieben wird.
+\newtheorem{remark}[definition]{Remark} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Provides TODOs within the margin:
+\newcommand{\TODO}[1]{\marginpar{\emph{\small{{\bf TODO: } #1}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abbreviations and mathematical symbols
+\newcommand{\modd}{\text{ mod }}
+\newcommand{\RS}{\mathbb{R}}
+\newcommand{\NS}{\mathbb{N}}
+\newcommand{\ZS}{\mathbb{Z}}
+\newcommand{\dnormal}{\mathit{N}}
+\newcommand{\duniform}{\mathit{U}}
+
+\newcommand{\erdos}{Erd\H{o}s}
+\newcommand{\renyi}{-R\'{e}nyi}
+\usepackage{graphicx}
+
+% correct bad hyphenation here
+\hyphenation{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document:
+\begin{document}
+
+\title{\trtitle}
+\renewcommand{\headheight}{14.5pt}
+
+%\fancyhead{}
+%\fancyhead[LE]{  }
+\fancyhead[LO]{\slshape \authorlastnames}
+%\fancyhead[RE]{}
+\fancyhead[RO]{ \slshape \titleshort}
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{
+\IEEEauthorblockN{John Adams}
+\IEEEauthorblockA{adams@informatik.uni-hamburg.de}
+\and
+\IEEEauthorblockN{Thomas Jefferson}
+\IEEEauthorblockA{jefferson@informatik.uni-hamburg.de}
+\and
+\IEEEauthorblockN{George Washington}
+\IEEEauthorblockA{washington@informatik.uni-hamburg.de}
+
+
+\begin{tabular}{lr}% 
+	\trcourse\\ 
+	\trgroup,
+	\truniversity
+\end{tabular}
+      
+} 
+
+
+% make the title area
+\maketitle
+
+\begin{abstract}
+    A concise and factual abstract is required. The abstract should state briefly i) the purpose of the research and problem at hand, ii) your methods, iii), your principal results, and iv) major conclusions. An abstract is often presented separately from the article, so it must be able to stand alone. For this reason, References should be avoided, but if essential, then cite the author(s) and year(s). Also, non-standard or uncommon abbreviations should be avoided, but if essential they must be defined at their first mention in the abstract itself. The typical length of an abstract is roughly 100-250 words. The length of this sample abstract is 187 words.\\
+\lipsum[2]
+    
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+\label{sec:introduction}
+
+The introduction motivates the research question. Ideally it describes the field, the specific open problem, why this is important, and -- most importantly -- what answer/approach/idea could possibly solve the problem. Keep in mind: Already in the introduction, every claim or idea that is not your (the author's) claim/idea needs a reference!
+
+In addition, the introduction outlines the main ideas of the following paper and what are the main contributions of the paper. Remember: The main goal of the seminar paper is NOT to repeat the content of a textbook, but to provide an OWN view on different very recent solutions for an open problem.
+
+If the paper has more than 4 pages, a reader's guide is recommenced. In a short paragraph an outline of the content of the next sections.
+
+\section{Related Work}
+\label{sec:basics}
+A brief section giving background information may be absolutely necessary, especially if your work spans across two or more traditional fields. That means that your readers may not have any experience with some of the material needed to follow your paper, so you need to provide the most important foundations. A different title than that given above is usually better; e.g., "A Brief Review of Frammis Algebra."
+
+
+\section{Models/Approaches/Methods Descriptions}
+\label{sec:model}
+
+After the (one or maybe two) common section(s) Introduction (and optional Background), more sections with the actual content of a paper follow. The style and structure of such sections varies by a large degree, no general rules of thumb can be given. However it is very important to describe each model/approach/method with respect to your research question: How can this model/approach/method solve the open question? 
+
+All sources must be properly referenced, ideally by using the BiBTeX system. References can then be very conveniently made with the \textsc{cite} command. For example, reference
+\cite{Leunen:Scholars:92} discusses some of the elementary rules on writing scientific papers, amongst others how to correctly cite other documents. Reference \cite{Taylor:SIGuide:95}, e.g., describes how to correctly use the SI system of units and their correct typographical
+representation. In general you organise this section(s) by idea, and not by author or by publication.
+
+For a good seminar paper you should end up having a number of approaches described that you can compare afterwards. Also in this section, the title of the section should be very meaningful and ideally name the proposed model/approach/method.
+\begin{figure*}
+	 \centerline{\includegraphics[width=1.0\textwidth]{boxp}}
+	 {\caption{This graphic is in the png format (raster graphics) so it gets ugly when you zoom into it (use pdf instead). If a figure needs more horizontal space to be readable, you can use figure* to span it over both columns. However, it's difficult to control the positioning with this method. So only do this if necessary.}\label{fig:1colfig}}
+\end{figure*}
+\subsection{Word processing with \LaTeX}
+\label{sec:model:subsec:latex}
+
+
+This document already has introduced the most important constructs of \LaTeX. What is necessary to produce documents with \LaTeX is simple any normal text editor and a \LaTeX distribution. This is commonly installed on practically all UNIX-type systems; for Windows, an
+excellent \LaTeX exists, called MikTeX, available from \url{www.miktex.org}. Almost all distributions come with a large patch of examples and introductory material; consult your local installation for details. 
+
+Lots of supplementary and background information, FAQs, etc.\ is available from the Comprehensive TeX Archive Network (CTAN); the German mirror of which is \url{www.dante.de}. 
+
+\subsection{Tables in \LaTeX}
+\label{sec:model:subsec:tables}
+\begin{table}[h] 
+  \caption{This caption has one line so it is centred.}\label{tab:sample} 
+  \centering
+  \begin{tabular}{|c|c|c|}\hline
+$n$ & $a_{n}^{2}$ & $r_{k}(1)$\\\hline
+0 & 3.602576748428 & 1.493719547999\\\hline
+1 & 1.384791111989 & 0.108928436101\\\hline
+2 & 0.108600438794 & 0.000327997399\\\hline
+3 & 0.000275794597 & 0.000052202814\\\hline
+4 & 0.000027616892 & 0.000024585922\\\hline
+5 & 0.000018178621 & 0.000006407300\\\hline
+  \end{tabular}{}
+\end{table}
+Tables should be centred and should always have a caption positioned above it. A caption in a sentence form as well as in a short form must end with a period as seen in table~\ref{tab:sample}. Ideally the table can be understood sorely by the table and the caption itself. The parameters ``hbtp'' provide a list of priorities for the arrangement of the table: here, bottom, top, (next) page.
+
+Note that we used \verb"[h]" after the \verb"\begin{table}" command to force the table to be included exactly at that location.  The same can be done for
+all tables and figures:
+
+
+\subsection{Figures in \LaTeX}
+\label{sec:model:subsec:figures}
+Note that a figure is a so-called floating object: it is moved around the actual text in order to best fit on a page. This is in strong contrast to some GUI-based word processing tools, where the placement of figures is usually more associated with luck than principle.
+
+As figures float around, expressions like ``the following figure'' must never be used. Instead, figures need a caption, a label, and must be properly referenced in the main text. A figure caption is placed centred below the figure and describes the figure in (very) short. Again, ideally the figure can be understood sorely by the figure and the caption itself.
+
+In general, only vector graphics in encapsulated postscript (EPS) or a similar format (SVG, PDF) should be included in any kind of text, as this allows arbitrary scaling, rotation etc.\ without any loss of quality. Bitmap formats (JPEG, GIF, \dots) should only be used if no other alternative exists --- basically the only case where bitmaps can be justified is when scanned pictures need to be included in a text, however, this should be avoided as hard as possible as the quality in usually not satisfactory. If a screen shot is needed a high resolution picture without visible fragments of a jpeg compression is allowed. Figures like the figure~\ref{fig:samplefig} (this is how you refer to figures correctly!) should be clearly readable and placed close to the reference point in the text.
+
+\begin{figure}[h]
+\centering{\includegraphics[width=60mm]{fig1}}
+\caption{Some sample figure}\label{fig:samplefig}
+\end{figure}
+
+\section{Results/Analysis}
+\label{sec:analysis}
+The analysis the proposed models/approaches/methods descriptions is a much more free-form of a paper. Starting with a comparison of several approaches over some experimental settings and result up to a theoretical verification of the model(s), anything is allowed. But it all should only serve one purpose: to convince the reader of the right to exist of the described models/Approaches/methods. For a seminar paper this is the most important section and your (the author's) own contribution!
+
+\section{Conclusion}
+\label{sec:concl}
+
+At the end, there is a final section concluding and summarizing a paper, putting the entire work into perspective and explaining, on a larger level, what the consequence of the models/approaches/methods are and how this answers the research question that has been raised in the introduction. Also, unexpected results etc. can be discussed here. You should typically end with stating future work and open questions to motivate further research.
+
+% insert your bibliographic references into the bib.bib file
+\bibliographystyle{plain}
+\addcontentsline{toc}{section}{Bibliography}% Add to the TOC
+\bibliography{bib}
+\end{document}
