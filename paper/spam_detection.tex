@@ -164,7 +164,9 @@
 \begin{abstract}
 This paper aims to detect opinion spammer groups on the Yelp dataset.
 
+Methode nennen
 
+results zeigen (conclusion)
 
 \end{abstract}
 
@@ -174,12 +176,52 @@ This paper aims to detect opinion spammer groups on the Yelp dataset.
 \label{sec:introduction}
 This chapter shows the motivation of why this topic is important. 
 
+Wir haben user mit unserer methode gefunden, die highly suspicous sind und dann ein beispiel nennen
+
+warum sind fake reviews doof
+
+was ist der impact
+
+leute treffen wirtschaftliche entscheidungen vermehrt anhand der reviews
+
+reviews tragen zur entscheidungsfindung bei und dabei ist ein verlässliches raiting essentiell
+
+viele fake reviews zersören das vertrauen in Yelp und ähnliche Plattformen wie bspw. Amazon.
 
 
+yelp hat 20 prozent fake reviews
+und filtert selber
+
+es sind noch fake reviews da
+
+weitere fake reviews reduzieren
+
+gruppenansatz von paper CPM XY
+Twist nennen
+
+story telling eine suspicous gruppe nennen
+(wo jeder sagen würde es ist klar spam)
+dann glaubt uns jeder
+
+idee warum gruppen --> Venn Diagramm zeigen 
 
 \section{Related Work}
 \label{sec:related_work}
 
+Was haben andere gemacht
+
+single fake review erkenne (3)
+
+gruppen fake reviews erkennen
+
+ergebnisse ...
+
+gruppenansatz von paper CPM XY
+2 andere gruppenansätze
+(man kann Twist nennen)
+
+
+----
 In this section we show important work which has been made by other researchers like 
 \cite{mukherjee2013spotting} and \cite{choo2015detecting}.
 
@@ -190,28 +232,89 @@ In this section we also want to highlight why this approach can be beneficial fo
 
 In this section we shortly describe how Yelps review system works. 
 
+you can give stars to business
+
+free for all
+
+yelp filters reviews on its own
+
+freitext
+
+yelp hat 20 fake reviews
+
+yelp filterd selber
+
+
 \section{Dataset}
 \label{sec:dataset}
 
-In this section we shortly describe the Yelp dataset.
+The dataset we use is publically available on Yelp.com and consists of real-world reviews about businesses. Yelp is a recommendations platform based on user-generated reviews. The dataset contains information about reviews, businesses, user data, and geographical data. More than 8 million reviews and more than 200.000 businesses are included in the dataset. For this paper, we look at reviews of 2016 that appeared in the area of Charlotte in North Carolina USA. In total, we examine 51261 reviews and 5954 businesses.  
 
 \section{Feature}
 \label{sec:feature}
 
+BST
+
+t=28
+
+Review Count for each user
+
+Cosine Similarity
+
+Duplicates/Near Duplicates (beta>0.7)
+
 In this section we descripe approximately 3 features we want to experiment with.  
 
+
+Extreme Rating (𝑬𝑿𝑻):
+
+
+ 
 \section{Model}
 \label{sec:model}
 
 In this section we describe our model/graph which aims to find opinion spamming groups.
+
+1. undirected Graph (G)
+2. We look at the reviews of each business
+3. Then, if 2 reviewer commented on the same business within in specific time window (alpha=6, in days) and the same star rating, then we add them to the Graph G 
+4. 
+
+Twist nennen (+ Grenzwertvariablen) 
+
+Image of Groups
+
 
 \section{Results/Analysis}
 \label{sec:analysis}
 
 In this section we show our plots and describe the results/interpretation. 
 
+look at artecicial groups
+
+- wie gut finden wir unseren suspicious score
+- reasoning über correlation
+- reasoning über vermutlichen prozentualen anteil
+  - 
+
+
+
+
 \section{Conclusion}
 \label{sec:concl}
+
+
+Twist nennen und sagen ob es eine gute Idee war
+
+Finale interpretations der Ergebnisse 
+ - Was haben wir eigentlich gemacht
+ - was war das ziel
+     - gruppen erkennen, die fake reviews schreiben
+ - haben wir das erreicht
+
+
+Was machen wir nächstes mal anders + Empfehlungen
+
 
 \section{Experimental plots}
 \label{sec:plots}
