@@ -57,6 +57,7 @@
 %Own packages
 \usepackage{graphicx}
 \usepackage{subfig}
+\usepackage[T1]{fontenc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configurationen:
@@ -179,45 +180,27 @@ Consumers' decisions are significantly influenced by product reviews. Due to the
 A rising online marketing budget has led to a larger influence and importance of online reviews in purchase and decision making. By the fact that positive/negative reviews are able to enhance/defame products organised opinion spamming started to take place. %\cite{kc2016dynamics}
 Nowadays it is estimated that up to 20\% of online reviews could be fake. %\cite{wang2010statistic} 
 
+These fake reviews are not the work of alone acting individuals, but more of organised payed group spammers \cite{choo2015detecting}. More often the media reports of such groups. For example in 2013 nineteen companies got fined for their practice of writing fake online reviews. These companies systematically paid freelance writers from Philippines, Bangladesh and Eastern Europe between \$1 to \$10 per review. (https://www.marketwatch.com/story/20-of-yelp-reviews-are-fake-2013-09-24)
+With the growing popularity of these platforms and the direct influence on the businesses success the practice of leaving fake reviews for its own or the competitors’ business is becoming more common.Luca, M., and Zervas, G. (2016). Fake It Till You Make It: Reputation, Competition, and Yelp Review Fraud. Management Science, 62(12), 3412–3427. doi:10.1287/mnsc.2015.2304 
+The \textit{New York Times} reported in 2011 on the case of businesses hiring workers to post fake 5-star Yelp reviews on their behalfs for as little as 25 cent per review. https://www.nytimes.com/2011/05/22/your-money/22haggler.html
+In another case Samsung got a heavy penalty for paying people to post messages online that attacked HTC, their competitor, products while praising Samsung’s. https://abcnews.go.com/Technology/samsung-fined-paying-people-criticize-htcs-products/story?id=20671547
 
+Yelp filters roughly 16 \% of its business reviews on its own. /cite Luca, M., and Zervas, G. (2016). Fake It Till You Make It: Reputation, Competition, and Yelp Review Fraud. Management Science, 62(12), 3412–3427. doi:10.1287/mnsc.2015.2304 
+Still reportedly Yelp’s spokesman says 20-25 \% of the submitted reviews are “suspicious”. https://www.marketwatch.com/story/20-of-yelp-reviews-are-fake-2013-09-24
 
-We use Yelp as the basis of this papers approach since it is one of the largest online consumer review hosting sites for services (e.g., restaurants, hotels, etc.) in the commerical setting. 
+In Fig. 1 examples of spam reviews we researched are shown. These reviews were posted by the same person but for two different businesses. 
 
-Due to the fact that we are simply not able to declare a user or a spammer group as definite "spam" we are trying to identify the groups that are suspicious and most likely to be spammers. 
+In this paper we propose a method to determine suspicious spammer groups accomplished by three steps. All these steps are based on the freely accessible Yelp.com dataset. Here we summarize the contributions of this paper as follows:
+\begin{description}
+\item[1.]
+Firstly we create user groups based on the review time of the written review and the rating score given by the user. With this step we are able to create groups that reviewed the same business at nearly the same time giving the same rating score. Goal is to find groups that potentially work together writing fake reviews. 
+\item[2.]
+Followed by the creation of groups we determine features that help us to determine suspicious behaviour. In this paper we use three features that give hints if a user or group acts suspicious. We are looking at behavioral data like review time, rating score and textual similarity between reviews. 
+\item[3.]
+Based on our groups and features we are giving each group a score that determines how likely this group is an actual spammer group, called suspicious score. The suspicious score is calculated out of the key indicators given by the individual feature assigned to each group. 
+\end{description}
+The paper is structured as follows. Section II introduces related work in the field of spam detection. Section III gives more detailed information about the used Yelp.com dataset, platform and review system. Section IV describes our determined features. Section V our model which aims to find opinion spamming groups gets described. Section VI reports the experimental results. Finally, Section VII concludes and discusses the paper.
 
-
-
-The temporal dynamics in which spammer groups operate is unclear.%\cite{kc2016dynamics}
-This chapter shows the motivation of why this topic is important. 
-
-Wir haben user mit unserer methode gefunden, die highly suspicous sind und dann ein beispiel nennen
-
-warum sind fake reviews doof
-
-was ist der impact
-
-leute treffen wirtschaftliche entscheidungen vermehrt anhand der reviews
-
-reviews tragen zur entscheidungsfindung bei und dabei ist ein verlässliches raiting essentiell
-
-viele fake reviews zersören das vertrauen in Yelp und ähnliche Plattformen wie bspw. Amazon.
-
-
-yelp hat 20 prozent fake reviews
-und filtert selber
-
-es sind noch fake reviews da
-
-weitere fake reviews reduzieren
-
-gruppenansatz von paper CPM XY
-Twist nennen
-
-story telling eine suspicous gruppe nennen
-(wo jeder sagen würde es ist klar spam)
-dann glaubt uns jeder
-
-idee warum gruppen --> Venn Diagramm zeigen 
 
 \section{Related Work}
 \label{sec:related_work}
@@ -279,20 +262,50 @@ The dataset we use is publically available on Yelp.com and consists of real-worl
 \section{Feature}
 \label{sec:feature}
 
-BST
+note: add 0 non spamming 1 suspiscous spamming
 
-t=28
+In the field of spam, detection features can be divided into reviewer-centric and review-centric features.  Review-centric features are built upon the raw text review itself and perceive what is written while reviewer-centric features are built upon metadata and describe the behavior of the reviewer within the given review system. 
+\\
+\\
+\textbf{Burstiness (BST):} This feature reflects the behavior of spammers who are only active in a short timeframe with a given account. Within that timeframe, they try to write multiple reviews to maximize their impact. 
 
-Review Count for each user
+$
+{BST(r)} = \begin{cases}
+    0 & \text{, } L(r)-F(r) > t \\
+    1 - \frac{L(r)-F(r}{t} & \text{, otherwise}
+\end{cases}
+$
 
-Cosine Similarity
+The BST is described in \cite{xu2019cpm} where $L(r)$ is the last review of a reviewer and $F(r)$ is the first one. We choose a threshold of $t=28$ which refers to 28 days. 
+The BST value of the group is the mean value of all given BST values of each unique reviewer in that group. 
+\\
+\\
+\textbf{Extreme Rating (EXT):}
+Given the 5-star rating scale of Yelp, spammers are likely to give extreme ratings due to the nature of impacting the general opinion in the given review system about the target product the most up or downwards \cite{mukherjee2013spotting}.
 
-Duplicates/Near Duplicates (beta>0.7)
+$
+{EXT(r)} = \begin{cases}
+    0 & \text{, } R(r) \in \{ 2,3,4 \} \\
+    1 & \text{, } R(r) \in \{ 1,5 \}
+\end{cases}
+$
 
-In this section we descripe approximately 3 features we want to experiment with.  
+Given all reviews of a reviewer $R(r)$ the EXT is 1 if all of them are either 1 or 5-star rating reviews. The EXT value of a group is then calculated by the mean value of all EXT values within a certain group.  
+\\
+\\
+\textbf{Cosine Similarity (CS):}
+We assume that reviewers which are organized within a group of spammers are likely to post multiple duplicate/near duplicate reviews distributed among their target products. We define the CS of a group by comparing each review with one other: 
+
+$
+{CS(g)} = \begin{cases}
+    mean(cosine(v_j, v_k), v_j \in \{ R(r_j)\},  v_k \in \{ R(r_k)\}) 
+\end{cases}
+$
+
+Given a group $g$ the CS is defined as the mean value of each pairwise calculated cosine similarity of two reviews $v_j$ and $v_k$ among all reviews within that group. 
 
 
-Extreme Rating (𝑬𝑿𝑻):
+
 
 
  
